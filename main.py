@@ -106,12 +106,11 @@ def caesar():
         print(f"\n{user_input} ==> {result}")
 
     else:
-        key = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
-        cipher = CaesarCipher(key)
+        cipher = CaesarCipher(keys)
         result = cipher.decrypt_bf(user_input)
 
         mid_column = max(len(str(_[0])) for _ in result)
-        print(f"{'Key':<3}\t{'Text':<{mid_column}}")
+        print(f"\n{'Key':<3}\t{'Text':<{mid_column}}")
         for i in range(len(result)):
             print(f"{result[i][1]:<3}\t{result[i][0]:<{mid_column}}")
 

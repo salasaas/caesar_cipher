@@ -6,7 +6,6 @@ import tkinter as tk
 class CaesarCipher:
     def __init__(self, key):
         self.key = key
-        #self.keys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
     def encrypt(self, plain_text):
         cipher_text = ""
@@ -40,10 +39,31 @@ class CaesarCipher:
         
         return plain_text
 
+    def decrypt_bf(self, cipher_text):
+        possible_text = []
+
+        for i in self.key:
+            plain_text = ""
+
+            for _ in cipher_text:
+                if _.isalpha():
+                    if _.isupper():
+                        plain_text += chr((ord(_) - i - 65) % 26 + 65)
+                    else:
+                        plain_text += chr((ord(_) - i - 97) % 26 + 97)
+                elif _.isnumeric():
+                    plain_text += chr((ord(_) - i - 48) % 10 + 48)
+                else:
+                    plain_text += _
+                
+            possible_text.append((plain_text, i))
+        
+        return possible_text
+
 
 def caesar():
-    keys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
     options = [1, 2, 3]
+    keys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
     try:
         user_input = input("Enter MESSAGE to encrypt/decrypt: ")
@@ -64,7 +84,7 @@ def caesar():
         except ValueError:
             print("Invalid input! Please enter a valid integer.")
     
-    if option == 1 or 2:
+    if option == 1 or option == 2:
         while True:
             try:
                 key = int(input("\nEnter encryption/decryption KEY value: "))
@@ -80,43 +100,20 @@ def caesar():
             result = cipher.encrypt(user_input)
         else:
             result = cipher.decrypt(user_input)
+
+        print(f"\nMessage: {user_input}, Key: {key}")
+        print("Processing.....................")
+        print(f"\n{user_input} ==> {result}")
+
     else:
-        caesar_bf()
-    
-    print(f"\nMessage: {user_input}, Key: {key}")
-    print("Processing.....................")
-    print(f"\n{user_input} ==> {result}")
+        key = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+        cipher = CaesarCipher(key)
+        result = cipher.decrypt_bf(user_input)
 
-
-def caesar_bf():
-    keys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
-    possible_text = []
-    
-    try:
-        cipher_text = input("\nEnter an encoded string to brute force: ")
-    except:
-        print("An Error occurred processing input.")
-
-    for key in keys:
-        plain_text = ""
-
-        for _ in cipher_text:
-            if _.isalpha():
-                if _.isupper():
-                    plain_text += chr((ord(_) - key - 65) % 26 + 65)
-                else:
-                    plain_text += chr((ord(_) - key - 97) % 26 + 97)
-            elif _.isnumeric():
-                plain_text += chr((ord(_) - key - 48) % 10 + 48)
-            else:
-                plain_text += _
-            
-        possible_text.append((plain_text, key))
-
-    mid_column = max(len(str(_[0])) for _ in possible_text)
-    print(f"{'Key':<3}\t{'Text':<{mid_column}}")
-    for i in range(len(possible_text)):
-        print(f"{possible_text[i][1]:<3}\t{possible_text[i][0]:<{mid_column}}")
+        mid_column = max(len(str(_[0])) for _ in result)
+        print(f"{'Key':<3}\t{'Text':<{mid_column}}")
+        for i in range(len(result)):
+            print(f"{result[i][1]:<3}\t{result[i][0]:<{mid_column}}")
 
 
 '''def caesar_gui():
@@ -139,7 +136,6 @@ def caesar_bf():
     encrypt_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
 
     root.mainloop()'''
-
 
 
 def main(argv):

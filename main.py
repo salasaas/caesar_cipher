@@ -115,28 +115,6 @@ def caesar():
             print(f"{result[i][1]:<3}\t{result[i][0]:<{mid_column}}")
 
 
-'''def caesar_gui():
-    root = tk.Tk()
-    root.title("Caesar Cipher")
-
-    user_entry_label = tk.Label(root, text="Plain Text: ")
-    user_entry_label.grid(row=0, column=0, padx=5, pady=5)
-    user_entry = tk.Entry(root)
-    user_entry.grid(row=0, column=1, padx=5, pady=5)
-
-    key_label = tk.Label(root, text="Key:")
-    key_label.grid(row=1, column=0, padx=5, pady=5)
-    key_entry = tk.Entry(root)
-    key_entry.grid(row=1, column=1, padx=5, pady=5)
-
-    def submit_inputs
-
-    encrypt_button = tk.Button(root, text="Encrypt", command=caesar_encrypt_gui)
-    encrypt_button.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
-
-    root.mainloop()'''
-
-
 def main(argv):
     caesar()
 
